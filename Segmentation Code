@@ -1,0 +1,108 @@
+# Importing necessary libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.cluster import  KMeans
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler
+import warnings  
+warnings.filterwarnings("ignore", category=FutureWarning) 
+
+
+# load Data
+Data = pd.read_csv("/kaggle/input/mall-customers-dataset/Mall_Customers.csv") 
+# Check for missing values and duplicates
+Data.duplicated().sum()
+
+Data.isnull().sum()
+
+# Pairplot to examine pairwise relationships 
+sns.pairplot(Data.drop(columns='CustomerID'))
+plt.show()
+
+# Encode categorical variable 'Gender' into numeric values  
+encoding = LabelEncoder()  
+Data["Gender"] = encoding.fit_transform(Data["Gender"])  
+
+# Standardize the features for better clustering performance  
+scaler = StandardScaler()  
+xData = scaler.fit_transform(Data) 
+
+# Perform KMeans clustering for a range of cluster numbers (1 to 11)  
+clustern = []  
+error = []
+
+for i in range(1, 11):  
+    modelk = KMeans(n_clusters=i, random_state=42)  
+    modelk.fit(xData) 
+    clustern.append(i) 
+    error.append(modelk.inertia_) 
+    print(f"Clusters: {i}, Inertia: {modelk.inertia_}")
+
+# Plotting the Elbow method to visualize the "elbow" point
+plt.figure(figsize=(8,6))
+plt.plot(clustern, error, marker='o', linestyle='-', color='b')
+plt.title('Elbow Method for Optimal Number of Clusters')
+plt.xlabel('Number of Clusters')
+plt.ylabel('Inertia (Error)')
+plt.grid(True)
+plt.show()
+ 
+# Best result is 4 clusters  it captures clear differences in the data more clusters doesn’t really improve the results much
+
+# Fit the KMeans model with the optimal number of clusters (e.g., k=4)  
+modelk = KMeans(n_clusters=4, random_state=42)  
+modelk.fit(xData)  
+
+KMeans
+KMeans(n_clusters=4, random_state=42)
+pre = modelk.predict(xData)  
+Data["KMean"] = pre  
+
+
+# Scatter plot of clusters 
+cluster1 = Data[Data["KMean"] == 0]  
+cluster2 = Data[Data["KMean"] == 1]  
+cluster3 = Data[Data["KMean"] == 2]  
+cluster4 = Data[Data["KMean"] == 3]  
+
+plt.scatter(cluster1["Annual Income (k$)"], cluster1["Spending Score (1-100)"], label="cluster0")  
+plt.scatter(cluster2["Annual Income (k$)"], cluster2["Spending Score (1-100)"], label="cluster1")  
+plt.scatter(cluster3["Annual Income (k$)"], cluster3["Spending Score (1-100)"], label="cluster2")  
+plt.scatter(cluster4["Annual Income (k$)"], cluster4["Spending Score (1-100)"], label="cluster3")  
+plt.title("Final Clusters")  
+plt.xlabel("Annual Income (k$)")  
+plt.ylabel("Spending Score (1-100)")  
+plt.legend()  
+plt.show() 
+
+
+sns.countplot(x=Data["KMean"], data=Data, hue="Gender")  
+plt.show() 
+Data.KMean.value_counts()  
+
+plt.figure(figsize=(12, 6))  
+sns.boxplot(data=Data, x='KMean', y='Age', hue='Gender')  
+plt.title('Age Distribution by KMeans Cluster and Gender')  
+plt.xlabel('KMeans Cluster')  
+plt.ylabel('Age')  
+plt.legend(title='Gender')  
+plt.show()  
+
+Data['Age Group'] = pd.cut(Data['Age'], bins=[0, 20, 30, 40, 50, 60, 70],  
+                           labels=['0-20', '21-30', '31-40', '41-50', '51-60', '61-70'])  
+
+
+# Count plot to visualize the distribution of age groups by cluster  
+plt.figure(figsize=(12, 6))  
+sns.countplot(data=Data, x='Age Group', hue='KMean')  
+plt.title('Age Group Distribution by Gender')  
+plt.xlabel('Age Group')  
+plt.ylabel('Count')  
+plt.legend(title='Gender')  
+plt.xticks(rotation=45)  
+plt.show()  
+
+
+ 
