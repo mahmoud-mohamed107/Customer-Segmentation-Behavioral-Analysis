@@ -132,7 +132,7 @@ We applied KMeans clustering to analyze our customer data, leading to the identi
 
 # Recommendations  
 
-base on uncoverd insight the Recommendations have been provided:
+based on uncovered insight the Recommendations have been provided:
 
 ##  Make the Most of Segment C’s Loyalty  
 - Start a “Premium Lite” loyalty program for Segment C, which includes budget-friendly rewards. For example, customers can earn credits back if they spend a certain amount each year.  
