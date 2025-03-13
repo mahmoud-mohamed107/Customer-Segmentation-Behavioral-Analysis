@@ -46,7 +46,7 @@ The customer segmentation analysis identified four distinct groups based on inco
 
 
 
-# Customer Segments Overview  
+# Extracted Customer Segments Overview  
 
 We applied KMeans clustering to analyze our customer data, leading to the identification of four distinct segments based on annual income, spending scores, and demographic patterns:  
 
@@ -68,8 +68,8 @@ We applied KMeans clustering to analyze our customer data, leading to the identi
 ## Segment D (Red)  
 - **Income/Spending**: Higher income and relatively high spending scores.  
 - **Age Profile**: Mostly younger to middle-aged adults (21–40 years old).  
-- **Gender Distribution**: Slightly more females than males (approx. 55%), fairly balanced overall.  
-
+- **Gender Distribution**: Slightly more females than males (approx. 55%), fairly balanced overall.
+  _____________________________________________________________________________________________________
 
 
 
@@ -130,7 +130,9 @@ We applied KMeans clustering to analyze our customer data, leading to the identi
 
 
 
-# Recommendations   
+# Recommendations  
+
+base on uncoverd insight the Recommendations have been provided:
 
 ##  Make the Most of Segment C’s Loyalty  
 - Start a “Premium Lite” loyalty program for Segment C, which includes budget-friendly rewards. For example, customers can earn credits back if they spend a certain amount each year.  
