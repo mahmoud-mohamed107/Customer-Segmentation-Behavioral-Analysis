@@ -75,6 +75,8 @@ We applied KMeans clustering to analyze our customer data, leading to the identi
 
 
 
+
+
 ![image](https://github.com/user-attachments/assets/ea3b2d87-a1f5-4f28-9d0d-03b66c466ada)
 
 # Spending vs. Income Patterns  
@@ -116,7 +118,7 @@ We applied KMeans clustering to analyze our customer data, leading to the identi
 
 ![image](https://github.com/user-attachments/assets/a95170ae-6e80-442e-bcd0-c06f905d8954)
 
- **Gender Distribution**  
+# Gender Distribution 
 
 ## Overall Customer Base  
 - **55%** of customers are female.  
